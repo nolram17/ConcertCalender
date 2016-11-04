@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="Teal_700">#ff00796b</color>
+    <color name="Teal_800">#ff00695c</color>
+    <color name="Blue_700">#ff3367d6</color>
+    <color name="Blue_800">#ff2a56c6</color>
+    <color name="Indigo_700">#ff303f9f</color>
+    <color name="Indigo_800">#ff283593</color>
+    <color name="Purple_700">#ff7b1fa2</color>
+    <color name="Purple_800">#ff6a1b9a</color>
+    <color name="Pink_700">#ffc2185b</color>
+    <color name="Pink_800">#ffad1457</color>
+    <color name="Red_700">#ffc53929</color>
+    <color name="Red_800">#ffb93221</color>
+    <item name="blue" type="color">#FF33B5E5</item>
+    <item name="purple" type="color">#FFAA66CC</item>
+    <item name="green" type="color">#FF99CC00</item>
+    <item name="orange" type="color">#FFFFBB33</item>
+    <item name="red" type="color">#FFFF4444</item>
+    <item name="darkblue" type="color">#FF0099CC</item>
+    <item name="darkpurple" type="color">#FF9933CC</item>
+    <item name="darkgreen" type="color">#FF669900</item>
+    <item name="darkorange" type="color">#FFFF8800</item>
+    <item name="darkred" type="color">#FFCC0000</item>
+</resources>

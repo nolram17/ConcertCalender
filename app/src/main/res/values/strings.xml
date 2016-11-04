@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ConcertCalender</string>
+    <string name="eventsText"> Events </string>
+</resources>
