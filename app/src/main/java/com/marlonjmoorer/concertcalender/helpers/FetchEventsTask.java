@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
-import com.marlonjmoorer.concertcalender.activities.CalenderActivity;
 import com.marlonjmoorer.concertcalender.models.CalenderEvent;
 
 import org.json.JSONArray;
@@ -23,7 +22,7 @@ import java.util.List;
  * Created by marlonmoorer on 11/4/16.
  */
 
-public class FetchEventsTask extends AsyncTask<Void,Void,JSONArray> {
+public class FetchEventsTask extends AsyncTask<Void,Void,JSONObject> {
 
     ArrayAdapter<CalenderEvent> adapter;
     public FetchEventsTask(ArrayAdapter<CalenderEvent> arrayAdapter) {
@@ -32,7 +31,7 @@ public class FetchEventsTask extends AsyncTask<Void,Void,JSONArray> {
     }
 
     @Override
-    protected JSONArray doInBackground(Void... params) {
+    protected JSONObject doInBackground(Void... params) {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
@@ -40,14 +39,18 @@ public class FetchEventsTask extends AsyncTask<Void,Void,JSONArray> {
 
 
 
-            Uri builtUri = Uri.parse("https://jsonplaceholder.typicode.com/users");
-            //.buildUpon()
-            //.appendQueryParameter(QUERY_PARAM, params[0])
-            //.appendQueryParameter(FORMAT_PARAM, format)
-            //.appendQueryParameter(UNITS_PARAM, units)
-            //.appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
+            Uri builtUri = Uri.parse("http://api.eventful.com/json/events/search")
+            .buildUpon()
+            .appendQueryParameter(QueryParams.location,"22312" )
+            .appendQueryParameter(QueryParams.within, "25")
+            .appendQueryParameter(QueryParams.keywords,"Rap")
+            .appendQueryParameter(QueryParams.sort_order,"date")
+            .appendQueryParameter(QueryParams.page_size,"100")
+            .appendQueryParameter(QueryParams.app_key,"BxBfJK2sTK3gQ58v")
+            .build();
 
-            //.build();
+
+
             URL url = new URL(builtUri.toString());
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
@@ -64,9 +67,6 @@ public class FetchEventsTask extends AsyncTask<Void,Void,JSONArray> {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-                // But it does make debugging a *lot* easier if you print out the completed
-                // buffer for debugging.
                 buffer.append(line + "\n");
             }
 
@@ -75,7 +75,7 @@ public class FetchEventsTask extends AsyncTask<Void,Void,JSONArray> {
                 return null;
             }
 
-            return new JSONArray(buffer.toString());
+            return new JSONObject(buffer.toString());
         }catch (Exception e){
             Log.e("ERR",e.getMessage());
             return null;
@@ -96,11 +96,11 @@ public class FetchEventsTask extends AsyncTask<Void,Void,JSONArray> {
 
 
     @Override
-    protected void onPostExecute(JSONArray jsonArray) {
-        super.onPostExecute(jsonArray);
+    protected void onPostExecute(JSONObject jsonObject) {
+        super.onPostExecute(jsonObject);
 
        try {
-           List<CalenderEvent> results = CalenderEvent.fromJson(jsonArray);
+           List<CalenderEvent> results = CalenderEvent.listFromJson(jsonObject);
            adapter.clear();
            adapter.addAll(results);
 

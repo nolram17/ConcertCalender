@@ -1,7 +1,6 @@
 package com.marlonjmoorer.concertcalender.adapters;
 
 import android.content.Context;
-import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +24,10 @@ public class EventsAdapter extends ArrayAdapter<CalenderEvent> {
 
     public EventsAdapter(Context context, List<CalenderEvent> objects) {
         super(context,0, objects);
+    }
+
+    public EventsAdapter(Context context) {
+        super(context,0);
     }
 
     static class ViewHolderItem {
