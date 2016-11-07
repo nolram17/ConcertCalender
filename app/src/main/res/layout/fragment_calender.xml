@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <CalendarView
@@ -12,14 +13,7 @@
         android:dateTextAppearance="@android:style/TextAppearance.Large"
         android:weekDayTextAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
         android:background="@color/colorSecondary"
-      />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-    </LinearLayout>
-
+        style="@android:style/Widget.CalendarView" />
 
 
 </LinearLayout>

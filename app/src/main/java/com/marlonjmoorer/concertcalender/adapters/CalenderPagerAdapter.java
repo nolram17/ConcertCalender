@@ -25,8 +25,7 @@ public class CalenderPagerAdapter extends FragmentStatePagerAdapter {
                 return new CalenderFragment();
             case 1:
                 return new EventListFragment();
-            case 2:
-                return new CalenderFragment();
+
             default:
                 return null;
         }
@@ -34,7 +33,7 @@ public class CalenderPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
 

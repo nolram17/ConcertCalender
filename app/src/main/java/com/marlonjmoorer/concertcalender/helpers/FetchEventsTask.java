@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.marlonjmoorer.concertcalender.models.CalenderEvent;
 
 import org.json.JSONArray;
@@ -14,8 +16,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -45,7 +49,7 @@ public class FetchEventsTask extends AsyncTask<Void,Void,JSONObject> {
             .appendQueryParameter(QueryParams.within, "25")
             .appendQueryParameter(QueryParams.keywords,"Rap")
             .appendQueryParameter(QueryParams.sort_order,"date")
-            .appendQueryParameter(QueryParams.page_size,"100")
+            .appendQueryParameter(QueryParams.page_size,"40")
             .appendQueryParameter(QueryParams.app_key,"BxBfJK2sTK3gQ58v")
             .build();
 
@@ -100,7 +104,12 @@ public class FetchEventsTask extends AsyncTask<Void,Void,JSONObject> {
         super.onPostExecute(jsonObject);
 
        try {
-           List<CalenderEvent> results = CalenderEvent.listFromJson(jsonObject);
+           Gson gson= new Gson();
+           JSONArray inputArray= jsonObject.getJSONObject("events").getJSONArray("event");
+           Type collectionType = new TypeToken<Collection<CalenderEvent>>(){}.getType();
+           List<CalenderEvent> results = gson.fromJson(inputArray.toString(),collectionType);
+
+           //List<_OldCalenderEvent> results = _OldCalenderEvent.listFromJson(jsonObject);
            adapter.clear();
            adapter.addAll(results);
 

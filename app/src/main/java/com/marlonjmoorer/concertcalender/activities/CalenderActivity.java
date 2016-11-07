@@ -1,7 +1,5 @@
 package com.marlonjmoorer.concertcalender.activities;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +11,7 @@ import android.widget.ListView;
 import com.marlonjmoorer.concertcalender.R;
 import com.marlonjmoorer.concertcalender.adapters.EventsAdapter;
 import com.marlonjmoorer.concertcalender.helpers.FetchEventsTask;
-import com.marlonjmoorer.concertcalender.models.CalenderEvent;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class CalenderActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -24,7 +20,7 @@ public class CalenderActivity extends AppCompatActivity implements AdapterView.O
     CalendarView calendarView;
     ListView eventList;
     EventsAdapter adapter;
-    ArrayList<CalenderEvent> items= new ArrayList<CalenderEvent>();
+    //ArrayList<_OldCalenderEvent> items= new ArrayList<_OldCalenderEvent>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +30,7 @@ public class CalenderActivity extends AppCompatActivity implements AdapterView.O
 
         ///
 
-        adapter= new EventsAdapter(this,items);
+       // adapter= new EventsAdapter(this,items);
         eventList= (ListView)findViewById(R.id.eventsListView);
         calendarView= (CalendarView)findViewById(R.id.calendarView);
 

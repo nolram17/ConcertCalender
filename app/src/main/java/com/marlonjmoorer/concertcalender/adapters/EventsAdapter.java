@@ -2,15 +2,22 @@ package com.marlonjmoorer.concertcalender.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.marlonjmoorer.concertcalender.R;
 import com.marlonjmoorer.concertcalender.models.CalenderEvent;
+import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,19 +39,25 @@ public class EventsAdapter extends ArrayAdapter<CalenderEvent> {
 
     static class ViewHolderItem {
         TextView date;
-        TextView eventText;
+        TextView title;
+        TextView location;
+        TextView venue;
+        ImageView poster;
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolderItem viewHolder;
-        CalenderEvent event=getItem(position);
+        final ViewHolderItem viewHolder;
+        final CalenderEvent event=getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_list_item, parent, false);
             viewHolder = new ViewHolderItem();
-            viewHolder.eventText= (TextView) convertView.findViewById(R.id.detailsTextView);
+            viewHolder.title= (TextView) convertView.findViewById(R.id.titleTextView);
             viewHolder.date=(TextView)convertView.findViewById(R.id.dateTextView);
+            viewHolder.location= (TextView) convertView.findViewById(R.id.locationTextView);
+            viewHolder.poster= (ImageView) convertView.findViewById(R.id.poster);
+            viewHolder.venue= (TextView) convertView.findViewById(R.id.venueTextView);
             // store the holder with the view.
             convertView.setTag(viewHolder);
         }else{
@@ -53,10 +66,25 @@ public class EventsAdapter extends ArrayAdapter<CalenderEvent> {
 
         if(event != null) {
             // get the TextView from the ViewHolder and then set the text (item name) and tag (item ID) values
-            viewHolder.date.setText(event.eventDate.toString());
-            viewHolder.eventText.setText(event.eventText);
-        }
 
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date startDate = null;
+            try {
+                startDate = df.parse(event.getStart_time());
+            } catch (ParseException e) {
+                Log.e("ERR",e.getMessage());
+            }
+
+            viewHolder.date.setText(DateFormat.getDateTimeInstance().format(startDate));
+            viewHolder.title.setText(event.getTitle());
+            viewHolder.location.setText(event.getCity_name());
+            viewHolder.venue.setText("@"+event.getVenue_name());
+            if(event.getImage()!=null){
+               // viewHolder.poster.setImageBitmap(event.img);
+                Picasso.with(getContext()).load(event.getImage().getUrl()).into(viewHolder.poster);
+            }
+
+        }
 
 
 

@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupUi();
 
+
     }
 
     @Override
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_logo);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_logo);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_logo);
+      
 
 
     }
